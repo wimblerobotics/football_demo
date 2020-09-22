@@ -1,5 +1,10 @@
 # football_demo
 
+A sampling of code for creating a football came which is visualized
+using a terminal window that supports VT-100 emulation.
+
+![Sample output](https://github.com/wimblerobotics/football_demo/tree/master/images/shot1.png)
+
 Requirements
 ------------
 - CMake version >= 2.8.12
@@ -41,7 +46,7 @@ Installation
     ```
 
 After running the demo, it's quite possible that the terminal window no longer is
-echoing characters. To fix the terminal enter the comment:
+echoing characters. To fix the terminal enter the command:
     ```
     &lt;tab>reset&lt;tab>
     ```
