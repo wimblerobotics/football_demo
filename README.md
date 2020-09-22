@@ -3,7 +3,7 @@
 A sampling of code for creating a football came which is visualized
 using a terminal window that supports VT-100 emulation.
 
-![Sample output](https://github.com/wimblerobotics/football_demo/tree/master/images/shot1.png)
+![Sample output](https://github.com/wimblerobotics/football_demo/blob/master/images/shot1.png?raw=true)
 
 Requirements
 ------------
