@@ -48,9 +48,9 @@ Installation
 After running the demo, it's quite possible that the terminal window no longer is
 echoing characters. To fix the terminal enter the command:
     ```
-    &lt;tab>reset&lt;tab>
+    <tab>reset<tab>
     ```
-Where &lt;tab> are actual tab characters.
+Where <tab> are actual tab characters.
 
 # Looking at the code
 ## CMakeLists.txt
@@ -73,7 +73,7 @@ The demo creates a Football object, which encapsulates the game. It then sets th
 
 After every second, the away team score is decremented and the home team score is incremented.
 
-After every second, the home team takes a timeout, reducing the number of underline symbols showing in the home team score window.
+After every second, the home team takes a timeout, reducing the number of underline symbols showing in the home team score window. After all three timeouts are gone, taking additional timeouts has no effect.
 
 From the 5th second through the 10th second, the game clock is allowed to decrement.
 
@@ -87,12 +87,14 @@ Beginning at the 7th second, the play clock begins to count down.
 
 All of this is just to demonstrate visual behavior for a football game using VT100 emulation in a terminal window.
 
-Of particular interest is that the game clock and the play clock are decremented in real time on their own threads, and the artifact of those close cause the values to be updated in the terminal display.
+Of particular interest is that the game clock and the play clock are decremented in real time on their own threads, and the artifact of those clock objects cause the values to be updated in the terminal display.
 
 ## src/football.cpp
 This encapsulates all the elements of the game. For this demo, it only includes
 two scoring objects for the home and away teams and a scoreboard for the game.
-There are methods in the class to control the game. As a side effect, the visual
+There are methods in the class to control the game and most handing of the game occurs by calling methods in this class. 
+
+As a side effect, the visual
 elements of the game are managed, and the will show up in the terminal when the
 redraw method is called. Until redraw is called, changes to the game since the last redraw call don't show up visually in the terminal window.
 
@@ -102,9 +104,11 @@ The Score class encapsulates scoring for a team, including visualization. The HO
 As with the Football class, changes to the scoring state don't show until redraw is called. You shouldn't do that yourself--rather you call redraw on the Football class instance and it will call all the required redraw methods for all the windows used for the game in the terminal window.
 
 ## src/clock.cpp
-The Clock class encapsulates the quarter name, the game clock, the play clock, the down and the yards to go for the down. The methods for manipulating these values should be obvious from the include/clock.h file, but you should use methods in the Football class to actually manipulate the game as that class will dole out method class to the Clock class as needed.
+The Clock class encapsulates the quarter name, the game clock, the play clock, the down and the yards to go for the down. The methods for manipulating these values should be obvious from the include/clock.h file, but you should use methods in the Football class to actually manipulate the game as that class will dole out method calls to the Clock class as needed.
 
 ## src/pauseable_timer.cpp
 The PauseableTimer class is used to encapsulate a countdown timer which will stop decrementing when the remaining time reaches zero. This is used for both the game clock and the play clock. The timer can be stopped and started and the remaining time can be reset.
+
+The timer decrements in real time when enabled and demonstrates how you can use Linux threads to do parallel operations in the background.
 
 
