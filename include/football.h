@@ -32,6 +32,9 @@ public:
     // Advance to next quarter.
     void nextQuarter();
 
+    // Place the teams for the play.
+    void placeTeams();
+
     // Redraw screen.
     void redraw();
 
@@ -60,6 +63,10 @@ public:
 
     static const short SCORE_AREA = 1;
     static const short FIELD_AREA = 2;
+    static const short AWAY_TEAM_AREA = 3;
+    static const short HOME_TEAM_AREA = 4;
+    static const short QUARTERBACK_AREA = 5;
+    static const short RECEIVER_AREA = 6;
 
 protected:
     Football(); // Can create via empty constructor.

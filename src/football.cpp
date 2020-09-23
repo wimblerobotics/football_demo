@@ -24,6 +24,14 @@ Football::Football(Team& away_team, Team& home_team)
 
     init_pair(SCORE_AREA, COLOR_BLACK, COLOR_WHITE);
     init_pair(FIELD_AREA, COLOR_WHITE, COLOR_GREEN);
+    init_pair(AWAY_TEAM_AREA, COLOR_MAGENTA, COLOR_WHITE);
+    init_pair(HOME_TEAM_AREA, COLOR_CYAN, COLOR_WHITE);
+    init_pair(QUARTERBACK_AREA, COLOR_RED, COLOR_WHITE);
+    init_pair(RECEIVER_AREA, COLOR_YELLOW, COLOR_WHITE);
+
+    away_team_.setColor(AWAY_TEAM_AREA);
+    home_team_.setColor(HOME_TEAM_AREA);
+
     clear();
 
 	away_score_ = new Score(away_team_, Score::AWAY);
@@ -68,6 +76,12 @@ void Football::nextDown() {
 
 void Football::nextQuarter() {
     clock_->nextQuarter();
+}
+
+void Football::placeTeams() {
+    away_team_.placeDefensivePlayers(*field_);
+    home_team_.placeOffensivePlayers(*field_);
+    field_->refresh(); //##### Do this elsewhere
 }
 
 void Football::redraw() {

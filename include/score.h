@@ -1,6 +1,7 @@
 #pragma once
 
 #include <curses.h>
+#include <stdint.h>
 
 class Team;
 

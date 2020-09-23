@@ -2,6 +2,7 @@
 
 #include <curses.h>
 #include <pthread.h>
+#include <stdint.h>
 #include <string>
 
 #include "pauseable_timer.h"

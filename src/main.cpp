@@ -29,6 +29,7 @@ int main() {
 		football->setScore(Football::HOME, football->getScore(Football::HOME) + 1);
 		football->takeTimeout(Football::HOME);
 		football->redraw();
+		football->placeTeams();
 	}
 
 	delete football;

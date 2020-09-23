@@ -2,11 +2,19 @@
 
 #include <curses.h>
 
+class Player;
+
 class Field {
 public:
     Field();
     ~Field();
 
+    void placePlayer(Player& player, short color);
+
+    // Refresh the field window.
+    void refresh();
+
+    // Redraw the base field.
     void redraw();
 
 private:

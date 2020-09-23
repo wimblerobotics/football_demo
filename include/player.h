@@ -1,27 +1,57 @@
 #pragma once
 
-#include "team.h"
+#include <stdint.h>
+
+class Team;
 
 class Player {
 public:
-    typedef enum POSITION {
+    typedef enum ROLE {
         REGULAR,
         QUARTERBACK,
         RECIEVER,
-    } POSITION;
+    } ROLE;
 
-    Player(Team& team, POSITION position);
+    // Whether a player is playing offense or defense.
+    typedef enum STRATEGY {
+        DEFENSE,
+        OFFENSE,
+    } STRATEGY;
+
+    Player(Team* team, ROLE position, STRATEGY stragety);
+    Player(); // Cannot use empty contructor.
     ~Player();
 
-protected:
-    Player(); // Cannot use empty contructor.
+    // Get the equivalent character to display for the player.
+    char getDisplayCharacter();
+
+    // Get player's role.
+    ROLE getRole();
+
+    // Get player's defense/offense strategy kind.
+    STRATEGY getStragety();
+
+    // Get X position relative to center of scrimmage.
+    int16_t getX();
+
+    // Get Y position relative to center of scrimmage.
+    int16_t getY();
+
+    // Set position relative to center of scrimmage.
+    void setXY(int16_t x, int16_t y);
 
 private:
-    char displayCharacter();
-
     // Position of player.
-    POSITION position_;
+    ROLE role_;
+
+    STRATEGY stragety_;
 
     // Team of player.
-    Team& team_;
+    Team* team_;
+
+    // X yards from center of scrimmage.
+    int16_t x_; 
+
+    // Y yards from center of scrimmage.
+    int16_t y_; 
 };

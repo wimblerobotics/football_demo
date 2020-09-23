@@ -2,6 +2,7 @@
 
 #include "field.h"
 #include "football.h"
+#include "player.h"
 
 Field::Field() 
     : columns_(WINDOW_WIDTH)
@@ -13,6 +14,31 @@ Field::Field()
 
 Field::~Field() {
     delwin(window_);
+}
+
+void Field::placePlayer(Player& player, short color) {
+    int16_t scrimmage_x = 15;
+    int16_t scimmage_y = 20;
+    int16_t player_x = scrimmage_x + player.getX() + 15/*field prefix*/;
+    int16_t player_y = scrimmage_x + player.getY();
+
+    short player_color;
+    if (player.getRole() == Player::QUARTERBACK) {
+        player_color = COLOR_PAIR(Football::QUARTERBACK_AREA);
+    } else if (player.getRole() == Player::RECIEVER) {
+        player_color = COLOR_PAIR(Football::RECEIVER_AREA);
+    } else {
+        player_color = COLOR_PAIR(color);
+    }
+
+    wattron(window_, player_color);
+    wmove(window_, player_y, player_x);
+    waddch(window_, player.getDisplayCharacter());
+    wattroff(window_, player_color);
+}
+
+void Field::refresh() {
+    wrefresh(window_);
 }
 
 void Field::redraw() {
@@ -79,5 +105,4 @@ void Field::redraw() {
 
     box(window_, 0, 0);
     wattroff(window_, COLOR_PAIR(Football::FIELD_AREA));
-    wrefresh(window_);
 }
