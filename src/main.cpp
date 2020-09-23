@@ -6,10 +6,13 @@
 #include <unistd.h>                  /*  for sleep()  */
 
 #include "football.h"
+#include "team.h"
 
 
 int main() {
-	Football* football = new Football(Football::NINERS, Football::RAMS);
+	Team away_team = Team(Team::NINERS);
+	Team home_team = Team(Team::GIANTS);
+	Football* football = new Football(away_team, home_team);
 
 	football->setScore(Football::AWAY, 20);
 	football->setScore(Football::HOME, 20);

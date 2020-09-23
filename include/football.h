@@ -4,6 +4,8 @@
 #include "field.h"
 #include "score.h"
 
+class Team;
+
 class Football {
 public:
 	// A team can either be the home team or the away team.
@@ -12,25 +14,14 @@ public:
 		AWAY
 	} HOME_OR_AWAY;
 
-    typedef enum TEAM {
-        GIANTS,
-        NINERS,
-        RAIDERS,
-        RAMS,
-        LAST_TEAM_PLACEHOLDER
-    } TEAM;
-
     // Constructor.
-    Football(TEAM away_team, TEAM home_team);
+    Football(Team& away_team, Team& home_team);
 
     // Destructor.
     ~Football();
 
     // Get team score.
     uint16_t getScore(HOME_OR_AWAY home_or_away);
-
-    // Get short string name of team.
-    const char *getShortTeamName(TEAM team);
 
     // Get yards to go.
     uint8_t getYardsToGo();
@@ -65,18 +56,20 @@ public:
     // Get team score.
     void takeTimeout(HOME_OR_AWAY home_or_away);
 
+    static Football no_football;
+
     static const short SCORE_AREA = 1;
     static const short FIELD_AREA = 2;
 
 protected:
-    Football() {} // Can create via empty constructor.
+    Football(); // Can create via empty constructor.
 
 private:
     // Away score.
-	Score* away_score_ = new Score("9ERSxx", Score::AWAY);
+	Score* away_score_;
     
     // Away team.
-    TEAM away_team_;
+    Team& away_team_;
 
     // Game clock.
 	Clock* clock_;
@@ -85,8 +78,8 @@ private:
     Field* field_;
 
     // Home score.    
-	Score* home_score_ = new Score("ABCD", Score::HOME);
+	Score* home_score_;
 
     // Home team.
-    TEAM home_team_;
+    Team& home_team_;
 };

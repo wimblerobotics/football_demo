@@ -2,6 +2,8 @@
 
 #include <curses.h>
 
+class Team;
+
 class Score {
 public:
 	// A team can either be the home team or the away team.
@@ -11,7 +13,7 @@ public:
 	} HOME_OR_AWAY;
 
 	// Constructor.
-	Score(const char* team_name, HOME_OR_AWAY home_or_away);
+	Score(Team& team, HOME_OR_AWAY home_or_away);
 
 	// Destructor.
 	~Score();
@@ -30,7 +32,7 @@ public:
 
 private:
     // Cannot create an empty Score object.
-	Score() {};
+	Score();
 
     // Width of window.
 	uint16_t columns_;
@@ -54,7 +56,7 @@ private:
 	uint8_t timeouts_remaining_;
 
     // Name of team.
-	const char* team_name_;
+	Team& team_;
 
     // The ncurses window itself.
 	WINDOW *window_;

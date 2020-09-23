@@ -2,11 +2,17 @@
 
 #include "football.h"
 #include "score.h"
+#include "team.h"
 
-Football::Football(TEAM away_team, TEAM home_team)
-    : away_team_(away_team)
+Football::Football(Team& away_team, Team& home_team)
+    : away_score_(new Score(away_team, Score::AWAY))
+    , away_team_(away_team)
+    , home_score_(new Score(home_team, Score::HOME))
     , home_team_(home_team)
     {
+    
+    away_team_.setFootball(this);
+    home_team_.setFootball(this);
 	initscr();			/* Start curses mode 		*/
     int r = start_color();
 	cbreak();			/* Line buffering disabled, Pass on everty thing to me 		*/
@@ -20,10 +26,19 @@ Football::Football(TEAM away_team, TEAM home_team)
     init_pair(FIELD_AREA, COLOR_WHITE, COLOR_GREEN);
     clear();
 
-	away_score_ = new Score(getShortTeamName(away_team), Score::AWAY);
+	away_score_ = new Score(away_team_, Score::AWAY);
 	clock_ = new Clock();
     field_ = new Field();
-	home_score_ = new Score(getShortTeamName(home_team_), Score::HOME);
+	home_score_ = new Score(home_team_, Score::HOME);
+}
+
+Football::Football()
+    : away_score_(new Score(Team::no_team, Score::AWAY))
+    , away_team_(Team::no_team)
+    , home_score_(new Score(Team::no_team, Score::HOME))
+    , home_team_(Team::no_team) {
+    away_team_.setFootball(this);
+    home_team_.setFootball(this);
 }
 
 Football::~Football() {
@@ -41,18 +56,6 @@ uint16_t Football::getScore(HOME_OR_AWAY home_or_away) {
     } else {
         return away_score_->getScore();
     }
-}
-
-const char *Football::getShortTeamName(TEAM team) {
-    static const char* SHORT_TEAM_NAMES[LAST_TEAM_PLACEHOLDER + 1] = {
-        "NYG",
-        "9ER",
-        "LVR",
-        "LAR",
-        "???"
-    };
-
-    return SHORT_TEAM_NAMES[team];
 }
 
 uint8_t Football::getYardsToGo() {
@@ -109,3 +112,5 @@ void Football::takeTimeout(HOME_OR_AWAY home_or_away) {
         away_score_->takeTimeout();
     }
 }
+
+Football Football::no_football = Football();

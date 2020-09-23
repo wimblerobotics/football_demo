@@ -18,9 +18,11 @@ add_executable(
     src/clock.cpp
     src/field.cpp
     src/football.cpp
+    src/main.cpp
+    src/player.cpp
     src/pauseable_timer.cpp
     src/score.cpp
-    src/main.cpp
+    src/team.cpp
 )
 
 target_include_directories(
