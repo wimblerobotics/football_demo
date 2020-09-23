@@ -1,6 +1,7 @@
 #pragma once
 
 #include "clock.h"
+#include "field.h"
 #include "score.h"
 
 class Football {
@@ -64,6 +65,9 @@ public:
     // Get team score.
     void takeTimeout(HOME_OR_AWAY home_or_away);
 
+    static const short SCORE_AREA = 1;
+    static const short FIELD_AREA = 2;
+
 protected:
     Football() {} // Can create via empty constructor.
 
@@ -75,7 +79,10 @@ private:
     TEAM away_team_;
 
     // Game clock.
-	Clock* clock_ = new Clock();
+	Clock* clock_;
+
+    // The playing field.
+    Field* field_;
 
     // Home score.    
 	Score* home_score_ = new Score("ABCD", Score::HOME);

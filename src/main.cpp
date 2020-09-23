@@ -9,11 +9,6 @@
 
 
 int main() {
-	initscr();			/* Start curses mode 		*/
-	cbreak();			/* Line buffering disabled, Pass on everty thing to me 		*/
-	keypad(stdscr, TRUE);
-	refresh();
-
 	Football* football = new Football(Football::NINERS, Football::RAMS);
 
 	football->setScore(Football::AWAY, 20);
@@ -34,7 +29,5 @@ int main() {
 	}
 
 	delete football;
-	endwin();
-	refresh();
 	return EXIT_SUCCESS;
 }

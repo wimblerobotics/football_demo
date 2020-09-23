@@ -1,5 +1,6 @@
-#include <curses.h>
 #pragma once
+
+#include <curses.h>
 
 class Score {
 public:

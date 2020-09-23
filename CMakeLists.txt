@@ -16,6 +16,7 @@ include_directories(${CURSES_INCLUDE_DIR})
 add_executable(
     wimble_ball
     src/clock.cpp
+    src/field.cpp
     src/football.cpp
     src/pauseable_timer.cpp
     src/score.cpp

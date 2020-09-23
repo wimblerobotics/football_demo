@@ -1,5 +1,7 @@
-#include "score.h"
 #include <ncurses.h>
+
+#include "football.h"
+#include "score.h"
 
 Score::Score(const char* team_name, HOME_OR_AWAY home_or_away) :
 	team_name_(team_name),
@@ -21,6 +23,7 @@ uint16_t Score::getScore() { return score_; }
 
 
 void Score::redraw() {
+    wattron(window_, COLOR_PAIR(Football::SCORE_AREA));
 	mvwprintw(window_, 1, 1, " %.3s %3d ", team_name_, score_);
 	mvwprintw(window_, 2, 1, "          ");
 	for (int i = 0; i < timeouts_remaining_; i++) {
@@ -28,6 +31,7 @@ void Score::redraw() {
 	}
 
 	box(window_, 0, 0);
+    wattroff(window_, COLOR_PAIR(Football::SCORE_AREA));
 	wrefresh(window_);
 }
 

@@ -4,6 +4,7 @@
 
 
 #include "clock.h"
+#include "football.h"
 
 //typedef void * (*THREADFUNCPTR)(void *);
 
@@ -57,6 +58,7 @@ void Clock::redraw() {
     static const char *QUARTER_NAMES[4] = {"1ST", "2ND", "3RD", "4TH"};
     uint16_t quarter_seconds_remaining = getRemainingQuarterSeconds();
     uint16_t playclock_seconds_remaining = getRemainingPlayclockSeconds();
+    wattron(window_, COLOR_PAIR(Football::SCORE_AREA));
  	mvwprintw(window_
               , 1
               , 1
@@ -73,6 +75,7 @@ void Clock::redraw() {
               , "%.14s"
               , line);
 	box(window_, 0, 0);
+    wattroff(window_, COLOR_PAIR(Football::SCORE_AREA));
 	wrefresh(window_);
 }
 
