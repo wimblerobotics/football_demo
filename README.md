@@ -40,7 +40,8 @@ Installation
     make
     ```
 
-1. Run the code.
+1. Run the code. Make sure your terminal window can handle 
+a screen size of 132 by 66. You may have to zoom out or shrink the default character size.
     ```
     ./wimble_ball
     ```
@@ -111,4 +112,5 @@ The PauseableTimer class is used to encapsulate a countdown timer which will sto
 
 The timer decrements in real time when enabled and demonstrates how you can use Linux threads to do parallel operations in the background.
 
-
+## src/field.cpp
+The Field class is used to encapsulate the playing field.
